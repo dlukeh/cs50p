@@ -6,7 +6,9 @@ def validate(ip: str) -> bool:
     Validate an IPv4 address.
     Returns True if ip is in the form X.X.X.X where each X is 0–255.
     """
-    match = re.fullmatch(r"(\d+)\.(\d+)\.(\d+)\.(\d+)", ip)
+    match = re.fullmatch(
+        r"(0|[1-9]\d{0,2})\.(0|[1-9]\d{0,2})\.(0|[1-9]\d{0,2})\.(0|[1-9]\d{0,2})", ip
+    )
     if not match:
         return False
 
