@@ -1,5 +1,10 @@
 from validator_collection import checkers
 
+"""
+Uses validator-collection. Prompts the user for an email address via input 
+and then prints Valid or Invalid, respectively,
+"""
+
 
 def main():
     email = input("What's your email address? ")

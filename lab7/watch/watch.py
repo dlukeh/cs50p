@@ -7,11 +7,13 @@ def main():
 
 def parse(s: str) -> str | None:
     """
-    Extract a YouTube video ID from an iframe embed HTML string
-    and return the corresponding shortened youtu.be URL.
+    Extract a YouTube video ID from an iframe's src attribute
+    and return the corresponding youtu.be short link.
     """
     match = re.search(
-        r'src="https?://(?:www\.)?youtube\.com/embed/([a-zA-Z0-9_-]+)"', s
+        r'<iframe[^>]*src="https?://(?:www\.)?youtube\.com/embed/([\w-]+)"',
+        s,
+        re.IGNORECASE,
     )
     if match:
         return f"https://youtu.be/{match.group(1)}"
