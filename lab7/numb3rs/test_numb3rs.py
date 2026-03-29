@@ -1,26 +1,32 @@
+import pytest
 from numb3rs import validate
 
 
 def test_valid():
-    assert validate("1.2.3.4") == True
-    assert validate("127.0.0.1") == True
-    assert validate("255.255.255.255") == True
-    assert validate("001.002.003.004") == True  # leading zeros allowed
+    """Valid IPv4 addresses should return True."""
+    assert validate("1.2.3.4")
+    assert validate("127.0.0.1")
+    assert validate("255.255.255.255")
+    assert validate("001.002.003.004")  # leading zeros allowed
 
 
 def test_invalid_format():
-    assert validate("1.2.3") == False
-    assert validate("1.2") == False
-    assert validate("1") == False
-    assert validate("1.2.3.4.5") == False
-    assert validate("1..3.4") == False
-    assert validate("a.b.c.d") == False
-    assert validate("") == False
+    """Invalid structure or non-numeric parts."""
+    assert not validate("1.2.3")
+    assert not validate("1.2")
+    assert not validate("1")
+    assert not validate("1.2.3.4.5")
+    assert not validate("1..3.4")
+    assert not validate("a.b.c.d")
+    assert not validate("")
+    assert not validate(".1.2.3")
+    assert not validate("1.2.3.")
 
 
 def test_out_of_range():
-    assert validate("256.1.1.1") == False
-    assert validate("1.256.1.1") == False
-    assert validate("1.1.256.1") == False
-    assert validate("1.1.1.256") == False
-    assert validate("275.3.6.28") == False
+    """Octets outside 0–255 should return False."""
+    assert not validate("256.1.1.1")
+    assert not validate("1.256.1.1")
+    assert not validate("1.1.256.1")
+    assert not validate("1.1.1.256")
+    assert not validate("275.3.6.28")
